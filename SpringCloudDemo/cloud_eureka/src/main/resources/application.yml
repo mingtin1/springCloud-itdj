@@ -1,0 +1,49 @@
+#server:
+#  port: 8761
+#spring:
+#  profiles: eureka
+#eureka:
+#  instance:
+#    hostname: eureka
+#  client:
+#    serviceUrl:
+#      defaultZone: http://peer2:8769/eureka/
+
+server:
+  port: 6868 #\u670D\u52A1\u7AEF\u53E3
+  enable-self-preservation: true #\u7981\u7528\u81EA\u6211\u4FDD\u62A4\u6A21\u5F0F
+spring:
+  application:
+    name: itcasst-microservice-eureka #\u6307\u5B9A\u670D\u52A1\u540D
+eureka:
+  client:
+    registerWithEureka: true #\u662F\u5426\u5C06\u81EA\u5DF1\u6CE8\u518C\u5230Eureka\u670D\u52A1\u4E2D\uFF0C\u672C\u8EAB\u5C31\u662F\u6240\u6709\u65E0\u9700\u6CE8\u518C
+    fetchRegistry: true #\u662F\u5426\u4ECEEureka\u4E2D\u83B7\u53D6\u6CE8\u518C\u4FE1\u606F
+    serviceUrl: #Eureka\u5BA2\u6237\u7AEF\u4E0EEureka\u670D\u52A1\u7AEF\u8FDB\u884C\u4EA4\u4E92\u7684\u5730\u5740
+      defaultZone: http://itcast:itcast123@127.0.0.1:6869/eureka/
+security:
+  basic:
+     enable: true #\u5F00\u542F\u57FA\u4E8EHTTP basic\u7684\u8BA4\u8BC1
+  user: #\u914D\u7F6E\u7528\u6237\u7684\u8D26\u53F7\u4FE1\u606F
+    name: itcast
+    password: itcast123
+
+# \u7B2C\u4E8C\u6B65\uFF0C\u4FEE\u6539\u914D\u7F6E\u6587\u4EF6\uFF0C\u518D\u542F\u52A8\u4E00\u4E2AEureka\u670D\u52A1\uFF0C\u8FDB\u884C\u91CD\u542F\u6D4B\u8BD5\uFF1A
+#server:
+#  port: 6869 #\u670D\u52A1\u7AEF\u53E3
+#  enable-self-preservation: true #\u7981\u7528\u81EA\u6211\u4FDD\u62A4\u6A21\u5F0F
+#spring:
+#  application:
+#    name: itcast-microservice-eureka #\u6307\u5B9A\u670D\u52A1\u540D
+#eureka:
+#  client:
+#    registerWithEureka: true #\u662F\u5426\u5C06\u81EA\u5DF1\u6CE8\u518C\u5230Eureka\u670D\u52A1\u4E2D\uFF0C\u672C\u8EAB\u5C31\u662F\u6240\u6709\u65E0\u9700\u6CE8\u518C
+#    fetchRegistry: true #\u662F\u5426\u4ECEEureka\u4E2D\u83B7\u53D6\u6CE8\u518C\u4FE1\u606F
+#    serviceUrl: #Eureka\u5BA2\u6237\u7AEF\u4E0EEureka\u670D\u52A1\u7AEF\u8FDB\u884C\u4EA4\u4E92\u7684\u5730\u5740
+#      defaultZone: http://itcast:itcast123@127.0.0.1:6868/eureka/
+#security:
+#  basic:
+#    enable: true #\u5F00\u542F\u57FA\u4E8EHTTP basic\u7684\u8BA4\u8BC1
+#  user: #\u914D\u7F6E\u7528\u6237\u7684\u8D26\u53F7\u4FE1\u606F
+#    name: itcast
+#    password: itcast123
