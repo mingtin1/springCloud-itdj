@@ -4,17 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.itdj</groupId>
-    <artifactId>cloud_Eureka</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>cloud_eureka</artifactId>
+    <version>${itdj-cloud.version}</version>
     <packaging>jar</packaging>
 
-    <name>cloud_Eureka</name>
+    <name>cloud_eureka</name>
     <description>注册中心</description>
 
     <parent>
         <groupId>com.itdj</groupId>
         <artifactId>itdj</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${itdj-cloud.version}</version>
     </parent>
 
     <dependencies>
@@ -22,7 +22,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-security</artifactId>
+        </dependency>
 
+    </dependencies>
 
 </project>
