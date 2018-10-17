@@ -10,28 +10,30 @@
 #      defaultZone: http://peer2:8769/eureka/
 
 server:
-  port: 8762
-#  port: 8761
+  port: 8761
+#  port: 8762
   enable-self-preservation: true #false表示在此eureka服务器中关闭自我保护模式，所谓自我保护模式是指，出现网络分区、eureka在短时间内丢失过
 spring:
   application:
     name: cloud-eureka-server
+  security:
+    user:
+      name: itcast
+      password: itcast123
+
 eureka:
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://itcast:itcast123@${eureka.instance.hostname}:${server.port}/eureka/,http://itcast:itcast123@127.0.0.1:8762/eureka/
+      defaultZone: http://itcast:itcast123@localhost:8761/eureka/
+#        - http://itcast:itcast123@${eureka.instance.hostname}:8762/eureka/
   instance:
     hostname: localhost
   server:  #配置属性，但由于 Eureka 自我保护模式以及心跳周期长的原因，经常会遇到 Eureka Server 不剔除已关停的节点的问题
     enable-self-preservation: false # 关闭自我保护模式（缺省为打开）
     eviction-interval-timer-in-ms: 30000
+
 security:
   basic:
      enable: true
-  user:
-    name: itcast
-    password: itcast123
-
-
