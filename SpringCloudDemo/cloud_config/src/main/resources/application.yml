@@ -1,0 +1,19 @@
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://itcast:itcast123@localhost:8761/eureka/ #,http://itcast:itcast123@localhost:8762/eureka/
+server:
+    port: 8888
+spring:
+    application:
+        name: cloud-config-server
+    cloud:
+        config:
+            label: master
+            server:
+                git:
+                    password: your password
+                    username: your username
+                    searchPaths: respo
+#                    uri: https://github.com/forezp/SpringcloudConfig/
+                    uri: https://github.com/mingtin1/SpringcloudConfig/
