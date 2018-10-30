@@ -16,8 +16,6 @@
         <groupId>com.itdj</groupId>
         <version>${itdj-cloud.version}</version>
     </parent>
-
-
     <dependencies>
 
         <dependency>
@@ -36,10 +34,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-
-
-
 
         <!--MySQL-->
         <!-- mysql驱动 -->
@@ -71,11 +65,11 @@
         </dependency>
 
         <!--myabtis-plus 代码生成依赖-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.velocity</groupId>-->
-            <!--<artifactId>velocity-engine-core</artifactId>-->
-            <!--<version>${velocity-engine-core.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>${velocity-engine-core.version}</version>
+        </dependency>
         <!--mybatis-plus end-->
     </dependencies>
 

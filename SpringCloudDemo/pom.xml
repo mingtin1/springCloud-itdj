@@ -37,12 +37,11 @@
         <jasypt.version>1.18</jasypt.version>
         <commons-io.version>2.6</commons-io.version>
         <fastjson.version>1.2.46</fastjson.version>
-        <hibernate-validator.version>5.4.1.Final</hibernate-validator.version>
-
         <jjwt.version>0.9.0</jjwt.version>
         <hutool.version>3.3.2</hutool.version>
         <fastdfs.version>0.2.0</fastdfs.version>
         <ttl.version>2.2.0</ttl.version>
+        <hibernate-validator.version>6.0.12.Final</hibernate-validator.version>
     </properties>
 
     <dependencies>

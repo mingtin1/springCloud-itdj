@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itdj.admin.mapper.SysUserMapper">
     <!-- 通用查询映射结果 -->
@@ -15,7 +16,49 @@
         <result column="del_flag" property="delFlag"/>
     </resultMap>
 
-    <select id="getById">
-    selet * from sys_user where user_id =#{id}
+    <!-- userVo结果集 -->
+    <resultMap id="userVoResultMap" type="com.itdj.common.vo.UserVO">
+        <id column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="phone" property="phone"/>
+        <result column="avatar" property="avatar"/>
+        <result column="ucreate_time" property="createTime"/>
+        <result column="uupdate_time" property="updateTime"/>
+        <result column="udel_flag" property="delFlag"/>
+        <result column="deptId" property="deptId"/>
+        <result column="deptName" property="deptName"/>
+        <!--<collection property="roleList" ofType="com.github.pig.common.vo.SysRole">-->
+        <!--<id column="role_id" property="roleId" />-->
+        <!--<result column="role_name" property="roleName" />-->
+        <!--<result column="role_code" property="roleCode" />-->
+        <!--<result column="role_desc" property="roleDesc" />-->
+        <!--<result column="rcreate_time" property="createTime" />-->
+        <!--<result column="rupdate_time" property="updateTime" />-->
+        <!--</collection>-->
+    </resultMap>
+
+    <select id="selectWithRolePage" resultMap="userVoResultMap">
+        SELECT
+        `user`.user_id,
+        `user`.username,
+        `user`.`password`,
+        `user`.salt,
+        `user`.phone,
+        `user`.avatar,
+        `user`.create_time AS ucreate_time,
+        `user`.update_time AS uupdate_time,
+        `user`.del_flag AS udel_flag
+        FROM
+        sys_user AS `user`
+        <where>
+            <if test="username != null and username != ''">
+                and `user`.username LIKE CONCAT('%',#{username},'%')
+            </if>
+        </where>
+        ORDER BY `user`.create_time DESC
+
     </select>
+
 </mapper>

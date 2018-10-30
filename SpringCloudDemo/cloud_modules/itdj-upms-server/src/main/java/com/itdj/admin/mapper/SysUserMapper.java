@@ -18,8 +18,12 @@
 package com.itdj.admin.mapper;
 
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.itdj.admin.model.entity.SysUser;
+import com.itdj.admin.model.queryPage.UserPage;
+import com.itdj.common.vo.UserVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -32,4 +36,5 @@ import com.itdj.admin.model.entity.SysUser;
 
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
+    List<UserVO> selectWithRolePage(UserPage userPage);
 }

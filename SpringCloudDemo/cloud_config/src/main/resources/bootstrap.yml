@@ -1,0 +1,31 @@
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/ #,http://itcast:itcast123@localhost:8762/eureka/
+server:
+    port: 8888
+
+spring:
+  application:
+    name: cloud-config-server
+  profiles:
+#      active: subversion #svn配置方式
+      active: dev
+  cloud:
+    config:
+      enabled: true
+      label: master
+      server:
+#        svn:
+#          uri: https://192.168.1.216/svn/projects/config #https://subversion/svn/projects/config  #
+#          username: wangjm
+#          password: 123456
+#          defaultLabel: config
+        git:
+          password: your password
+          username: your username
+          searchPaths: respo
+#          uri: https://github.com/forezp/SpringcloudConfig/
+          uri: https://github.com/mingtin1/SpringcloudConfig/
+          default-label: ${spring.profiles.active}
+

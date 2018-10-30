@@ -17,11 +17,11 @@
         <version>${itdj-cloud.version}</version>
     </parent>
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
 
         <!--JWT-->
         <dependency>
@@ -63,12 +63,14 @@
             <artifactId>jasypt-spring-boot-starter</artifactId>
             <version>${jasypt.version}</version>
         </dependency>
+
         <!--mybatis-plus-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>2.1.9</version>
+            <version>3.0.1</version>
         </dependency>
+
         <!--retry start 异常重启框架-->
         <dependency>
             <groupId>org.springframework.retry</groupId>
@@ -81,13 +83,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validator.version}</version>
         </dependency>
+
         <!-- okhttp -->
         <dependency>
             <groupId>io.github.openfeign</groupId>
@@ -105,15 +107,17 @@
             <artifactId>fastdfs-spring-boot-starter</artifactId>
             <version>${fastdfs.version}</version>
         </dependency>
-
         <!-- TTL -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>transmittable-thread-local</artifactId>
             <version>${ttl.version}</version>
         </dependency>
-
-
+        <!--消息总线-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

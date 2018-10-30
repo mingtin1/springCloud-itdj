@@ -1,0 +1,26 @@
+1、配置管理项目环境变量：
+	http://config:8888/env
+	http://config:8888/health
+	
+2、本地文件存储配置文件
+	http://config:8888/auth-service/native 
+	http://config:8888/native/auth-service.yml
+3、svn
+	default label: trunk
+	profile: dev
+	application name: name
+	
+	http://config:8888/api-user/dev/trunk
+
+命名规格
+/{application}/{profile}[/{label}]
+ /{application}-{profile}.yml
+ /{label}/{application}-{profile}.yml
+
+ /{application}-{profile}.properties
+ /{label}/{application}-{profile}.properties
+
+	
+	
+	
+	

@@ -1,29 +1,18 @@
-/*
- *    Copyright (c) 2018-2025, lengleng All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice,
- * this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright
- * notice, this list of conditions and the following disclaimer in the
- * documentation and/or other materials provided with the distribution.
- * Neither the name of the pig4cloud.com developer nor the names of its
- * contributors may be used to endorse or promote products derived from
- * this software without specific prior written permission.
- * Author: lengleng (wangiegie@gmail.com)
- */
 
 package com.itdj.admin.controller;
 
 import com.itdj.admin.model.entity.SysUser;
+import com.itdj.admin.model.queryPage.UserPage;
 import com.itdj.admin.service.SysUserService;
+import com.itdj.admin.utils.LayuiReplay;
+import com.itdj.common.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @author djj
@@ -32,29 +21,46 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    private String prefix = "views/sys/user/";
+    private String prefix = "views/user/";
     @Autowired
     private SysUserService userService;
 
-    @RequestMapping("/index")
-    public String index(){
-        return "views/index";
-    }
-
-    @RequestMapping("/login")
-    public String login(){
-        return "views/login";
-    }
     @RequestMapping("/get/{id}")
     @ResponseBody
     public SysUser getUser(@PathVariable("id") Integer id) {
-        SysUser sysUser = userService.selectById(id);
+        SysUser sysUser = new SysUser();
+        sysUser.setUserId(id);
+        sysUser = userService.getById(sysUser);
         return sysUser;
     }
 
-    @RequestMapping("/list")
+    @RequestMapping("/user")
     public String user() {
-        System.out.println(prefix + "user");
-        return prefix + "user";
+        return prefix + "list";
     }
+
+    /**
+     * 分页查询用户
+     *
+     * @return 用户集合
+     */
+    @RequestMapping("/userPage")
+    @ResponseBody
+    public LayuiReplay userPage(UserPage userPage) {
+
+        List<UserVO> list = userService.selectWithRolePage(userPage);
+        LayuiReplay r = new LayuiReplay(0, "获得数据成功", list.size(), list);
+        return r;
+    }
+    @RequestMapping("/add")
+    public String add()
+    {
+        return prefix + "add";
+    }
+    @RequestMapping("/update")
+    public String update()
+    {
+        return prefix + "update";
+    }
+
 }
