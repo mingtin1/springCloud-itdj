@@ -1,0 +1,25 @@
+<head th:fragment="header">
+
+</head>
+<div th:fragment="footer">
+    <script type="text/javascript" src="/frame/layui/layui.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript" src="/js/sys/common/data-format.js"></script>
+</div>
+
+<div th:fragment="ListTextHtml">
+    <!--  状态 -->
+    <script type="text/html" id="delFlag">
+        {{#  if(d.delFlag == 0){ }}
+        <span style="color: #00C0F7;">正常</span>
+        {{#  } else { }}
+        <span style="color: #c00;">删除</span>
+        {{#  } }}
+    </script>
+    <!-- 表格操作按钮集 -->
+    <script type="text/html" id="barOption">
+        <a class="layui-btn layui-btn-mini" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+    </script>
+</div>

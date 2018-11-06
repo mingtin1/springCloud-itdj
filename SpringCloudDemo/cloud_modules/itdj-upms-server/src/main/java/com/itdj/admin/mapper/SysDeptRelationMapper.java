@@ -19,26 +19,16 @@ package com.itdj.admin.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itdj.admin.model.entity.SysUser;
-import com.itdj.admin.model.queryPage.UserPage;
-import com.itdj.common.vo.UserVO;
-
-import java.util.List;
+import com.itdj.admin.model.entity.SysDeptRelation;
 
 /**
  * <p>
- * 用户表 Mapper 接口
+  *  Mapper 接口
  * </p>
  *
- * @author djj
- * @since 2018-10-16
+ * @author lengleng
+ * @since 2018-02-12
  */
+public interface SysDeptRelationMapper extends BaseMapper<SysDeptRelation> {
 
-public interface SysUserMapper extends BaseMapper<SysUser> {
-
-    List<UserVO> selectWithRolePage(UserPage userPage);
-
-    int slectChount(UserPage userPage);
-
-    UserVO selectUserVoById(Integer id);
 }

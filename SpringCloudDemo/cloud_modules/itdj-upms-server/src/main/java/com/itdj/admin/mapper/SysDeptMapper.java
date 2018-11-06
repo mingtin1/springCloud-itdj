@@ -19,26 +19,31 @@ package com.itdj.admin.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itdj.admin.model.entity.SysUser;
-import com.itdj.admin.model.queryPage.UserPage;
-import com.itdj.common.vo.UserVO;
+import com.itdj.admin.model.entity.SysDept;
 
 import java.util.List;
 
 /**
  * <p>
- * 用户表 Mapper 接口
+ * 部门管理 Mapper 接口
  * </p>
  *
- * @author djj
- * @since 2018-10-16
+ * @author lengleng
+ * @since 2018-01-20
  */
+public interface SysDeptMapper extends BaseMapper<SysDept> {
 
-public interface SysUserMapper extends BaseMapper<SysUser> {
+    /**
+     * 关联dept——relation
+     *
+     * @param delFlag 删除标记
+     * @return 数据列表
+     */
+    List<SysDept> selectDeptDtoList(String delFlag);
 
-    List<UserVO> selectWithRolePage(UserPage userPage);
-
-    int slectChount(UserPage userPage);
-
-    UserVO selectUserVoById(Integer id);
+    /**
+     * 删除部门关系表数据
+     * @param id 部门ID
+     */
+    void deleteDeptRealtion(Integer id);
 }

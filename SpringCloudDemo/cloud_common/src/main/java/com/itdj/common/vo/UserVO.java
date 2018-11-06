@@ -69,13 +69,6 @@ public class UserVO implements Serializable {
      */
     private String deptName;
 
-    public String delFlagStatus() {
-        if ("1".equals(delFlag)) {
-            return "删除";
-        }
-        return "正常";
-
-    }
 
 
 }

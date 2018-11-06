@@ -33,7 +33,7 @@
         <sharding-jdbc-core-spring-boot-starter.version>2.0.1</sharding-jdbc-core-spring-boot-starter.version>
         <fastjson.version>1.2.46</fastjson.version>
         <swagger2.version>2.8.0</swagger2.version>
-        <mybatis-plus.version>2.1.9</mybatis-plus.version>
+        <mybatis-plus.version>3.0.5</mybatis-plus.version>
         <jasypt.version>1.18</jasypt.version>
         <commons-io.version>2.6</commons-io.version>
         <fastjson.version>1.2.46</fastjson.version>

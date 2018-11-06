@@ -15,30 +15,49 @@
  * Author: lengleng (wangiegie@gmail.com)
  */
 
-package com.itdj.admin.mapper;
+package com.itdj.admin.model.entity;
 
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itdj.admin.model.entity.SysUser;
-import com.itdj.admin.model.queryPage.UserPage;
-import com.itdj.common.vo.UserVO;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
 
-import java.util.List;
+import java.io.Serializable;
 
 /**
  * <p>
- * 用户表 Mapper 接口
+ * 
  * </p>
  *
- * @author djj
- * @since 2018-10-16
+ * @author lengleng
+ * @since 2018-01-22
  */
+@Data
+@TableName("sys_dept_relation")
+public class SysDeptRelation extends Model<SysDeptRelation> {
 
-public interface SysUserMapper extends BaseMapper<SysUser> {
+    private static final long serialVersionUID = 1L;
 
-    List<UserVO> selectWithRolePage(UserPage userPage);
+    /**
+     * 祖先节点
+     */
+	private Integer ancestor;
+    /**
+     * 后代节点
+     */
+	private Integer descendant;
 
-    int slectChount(UserPage userPage);
 
-    UserVO selectUserVoById(Integer id);
+	@Override
+	protected Serializable pkVal() {
+		return this.ancestor;
+	}
+
+	@Override
+	public String toString() {
+		return "SysDeptRelation{" +
+			", ancestor=" + ancestor +
+			", descendant=" + descendant +
+			"}";
+	}
 }

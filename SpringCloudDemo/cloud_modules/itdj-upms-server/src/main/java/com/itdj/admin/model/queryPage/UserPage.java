@@ -12,5 +12,4 @@ import lombok.Setter;
 public class UserPage extends BasePage {
 
     private String username;
-
 }

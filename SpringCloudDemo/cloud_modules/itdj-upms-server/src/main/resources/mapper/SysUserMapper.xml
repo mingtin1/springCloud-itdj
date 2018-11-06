@@ -57,8 +57,37 @@
                 and `user`.username LIKE CONCAT('%',#{username},'%')
             </if>
         </where>
+
         ORDER BY `user`.create_time DESC
+        LIMIT #{pageIndex},#{limit}
 
     </select>
 
+    <select id="slectChount" resultType="int">
+        SELECT
+        count( *)
+        FROM
+        sys_user AS `user`
+        <where>
+            <if test="username != null and username != ''">
+                and `user`.username LIKE CONCAT('%',#{username},'%')
+            </if>
+        </where>
+    </select>
+    <select id="selectUserVoById" resultMap="userVoResultMap">
+        SELECT
+        `user`.user_id,
+        `user`.username,
+        `user`.`password`,
+        `user`.salt,
+        `user`.phone,
+        `user`.avatar,
+        `user`.create_time AS ucreate_time,
+        `user`.update_time AS uupdate_time,
+        `user`.del_flag AS udel_flag
+        FROM
+        sys_user AS `user`
+        WHERE
+        `user`.user_id = #{id}
+    </select>
 </mapper>

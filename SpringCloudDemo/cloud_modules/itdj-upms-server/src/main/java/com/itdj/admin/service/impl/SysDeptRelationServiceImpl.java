@@ -15,30 +15,24 @@
  * Author: lengleng (wangiegie@gmail.com)
  */
 
-package com.itdj.admin.mapper;
+package com.itdj.admin.service.impl;
 
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itdj.admin.model.entity.SysUser;
-import com.itdj.admin.model.queryPage.UserPage;
-import com.itdj.common.vo.UserVO;
-
-import java.util.List;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itdj.admin.mapper.SysDeptRelationMapper;
+import com.itdj.admin.model.entity.SysDeptRelation;
+import com.itdj.admin.service.SysDeptRelationService;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 用户表 Mapper 接口
+ * 服务实现类
  * </p>
  *
- * @author djj
- * @since 2018-10-16
+ * @author lengleng
+ * @since 2018-02-12
  */
+@Service
+public class SysDeptRelationServiceImpl extends ServiceImpl<SysDeptRelationMapper, SysDeptRelation> implements SysDeptRelationService {
 
-public interface SysUserMapper extends BaseMapper<SysUser> {
-
-    List<UserVO> selectWithRolePage(UserPage userPage);
-
-    int slectChount(UserPage userPage);
-
-    UserVO selectUserVoById(Integer id);
 }

@@ -21,7 +21,6 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
             }
 
         }
-        , pass: [/(.+){6,12}$/, '密码必须6到12位']
 
         , content: function (value) {
             layedit.sync(editIndex);
@@ -32,7 +31,7 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
         $.ajax({
             cache: true,
             type: "POST",
-            url: "/user/addForm",
+            url: "/user/update",
             data: data.field,// 你的formid
             async: false, //异步
             success: function (data) {
@@ -53,3 +52,4 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
     });
 
 });
+

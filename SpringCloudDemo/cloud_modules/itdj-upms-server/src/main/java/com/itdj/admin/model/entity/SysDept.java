@@ -23,7 +23,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -31,34 +30,29 @@ import java.util.Date;
 
 /**
  * <p>
- * 用户表
+ * 部门管理
  * </p>
  *
  * @author lengleng
- * @since 2017-10-29
+ * @since 2018-01-22
  */
 @Data
-@TableName("sys_user")
-public class SysUser extends Model<SysUser> {
+@TableName("sys_dept")
+public class SysDept extends Model<SysDept> {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "dept_id", type = IdType.AUTO)
+    private Integer deptId;
     /**
-     * 主键ID
+     * 部门名称
      */
-    @TableId(value = "user_id", type = IdType.AUTO)
-    private Integer userId;
+    private String name;
     /**
-     * 用户名
+     * 排序
      */
-    private String username;
-
-    private String password;
-    /**
-     * 随机盐
-     */
-    @JsonIgnore
-    private String salt;
+    @TableField("order_num")
+    private Integer orderNum;
     /**
      * 创建时间
      */
@@ -70,45 +64,29 @@ public class SysUser extends Model<SysUser> {
     @TableField("update_time")
     private Date updateTime;
     /**
-     * 0-正常，1-删除
+     * 是否删除  -1：已删除  0：正常
      */
     @TableField("del_flag")
     private String delFlag;
 
-    /**
-     * 手机号
-     */
-    private String phone;
-    /**
-     * 头像
-     */
-    private String avatar;
-
-    /**
-     * 部门ID
-     */
-    @TableField("dept_id")
-    private Integer deptId;
+    @TableField("parent_id")
+    private Integer parentId;
 
 
     @Override
     protected Serializable pkVal() {
-        return this.userId;
+        return this.deptId;
     }
 
     @Override
     public String toString() {
-        return "SysUser{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
+        return "SysDept{" +
+                ", deptId=" + deptId +
+                ", name=" + name +
+                ", orderNum=" + orderNum +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
-                ", delFlag='" + delFlag + '\'' +
-                ", phone='" + phone + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", deptId=" + deptId +
-                '}';
+                ", delFlag=" + delFlag +
+                "}";
     }
 }

@@ -15,30 +15,29 @@
  * Author: lengleng (wangiegie@gmail.com)
  */
 
-package com.itdj.admin.mapper;
+package com.itdj.admin.model.dto;
 
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.itdj.admin.model.entity.SysUser;
-import com.itdj.admin.model.queryPage.UserPage;
-import com.itdj.common.vo.UserVO;
+import lombok.Data;
 
 import java.util.List;
 
 /**
- * <p>
- * 用户表 Mapper 接口
- * </p>
- *
- * @author djj
- * @since 2018-10-16
+ * @author lengleng
+ * @date 2017/11/5
  */
+@Data
+public class UserDTO extends SysUser {
+    /**
+     * 角色ID
+     */
+    private List<Integer> role;
 
-public interface SysUserMapper extends BaseMapper<SysUser> {
+    private Integer deptId;
 
-    List<UserVO> selectWithRolePage(UserPage userPage);
-
-    int slectChount(UserPage userPage);
-
-    UserVO selectUserVoById(Integer id);
+    /**
+     * 新密码
+     */
+    private String newpassword1;
 }
