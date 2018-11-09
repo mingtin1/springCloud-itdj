@@ -59,8 +59,7 @@ public class UserController {
     @RequestMapping("/userPage")
     @ResponseBody
     public LayuiReplay userPage(UserPage userPage) {
-        LayuiReplay r = userService.userPage(userPage);
-        return r;
+        return userService.userPage(userPage);
     }
 
     @RequestMapping("/add")
@@ -130,7 +129,12 @@ public class UserController {
     @RequestMapping("/remove")
     @ResponseBody
     public R<Boolean> remove(Long id) {
-        SysUser sysUser = userService.getById(id);
-        return new R<>(userService.deleteUserById(sysUser));
+        try {
+            SysUser sysUser = userService.getById(id);
+            return new R<>(userService.deleteUserById(sysUser));
+        } catch (Exception e) {
+            return new R<>(e);
+        }
+
     }
 }

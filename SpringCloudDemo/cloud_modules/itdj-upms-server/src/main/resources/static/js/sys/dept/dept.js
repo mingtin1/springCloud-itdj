@@ -1,89 +1,177 @@
+var editObj = null;
+var ptable = null, tableId = 'deptTreeTable', layer = null;
+var treeGrid = null;
+var prefix = "/dept"
+layui.config({
+    base: '/frame/static/js/'   // 模块目录
+}).extend({
+    treeGrid: 'treeGrid'
+}).use(['jquery', 'treeGrid', 'layer', 'vip_table'],
+    function () {
+        var layer = layui.layer
+            , treeGrid = layui.treeGrid   //很重要
+            , vipTable = layui.vip_table
+            , $ = layui.$
+            , active = {
+            reload: function () {
+                query();
+            }, openAll: function () {
+                openAll()
+            }
+        };
+        var options = {
+            id: tableId
+            , elem: '#' + tableId
+            , url: '/dept/listPage'
+            , cellMinWidth: 100
+            , idField: 'deptId'//必須字段
+            , treeId: 'deptId'//树形id字段名称
+            , treeUpId: 'parentId'//树形父id字段名称
+            , treeShowName: 'name'//以树形式显示的字段
+            , heightRemove: [".dHead", 10]//不计算的高度,表格设定的是固定高度，此项不生效
+            , height: vipTable.getFullHeight()
+            , isFilter: false
+            , iconOpen: false//是否显示图标【默认显示】
+            , isOpenDefault: false//节点默认是展开还是折叠【默认展开】
+            , loading: false
+            , method: 'post'
+            , isPage: false
+            , cols: [[
+                {field: 'deptId', width: '10%', align: 'center', title: '编码'}
+                , {field: 'name', width: '40%', title: '部门名称'}
+                , {field: 'orderNum', width: '10%', align: 'center', title: "排序"}
+                , {field: 'delFlag', title: '状态', align: 'center', width: '10%', sort: true, templet: '#delFlag'}
+                , {width: '20%', title: '操作', align: 'center', toolbar: '#barOption'}
+            ]]
+            , parseData: function (res) {//数据加载后回调
+                return res;
+            }
+        };
 
-// layui方法
-layui.use(['tree', 'table', 'vip_table', 'layer'], function () {
+        ptable = treeGrid.render(options);
+        //监听事件
+        treeGrid.on('tool(' + tableId + ')', function (obj) {
+            if (obj.event === 'del') {//删除行
+                var data = obj.data;
+                layer.confirm('真的删除行么', function (index) {
+                    $.ajax({
+                        url: "/dept/remove/"+data.deptId,
+                        type: "post",
+                        success: function (r) {
+                            if (r.code == 0) {
+                                layer.msg(r.msg);
+                                query();
+                            } else {
+                                layer.msg(r.msg);
+                            }
+                        },
+                        error: function (request) {
+                            layer.alert("Connection error");
+                        },
+                    });
+                });
+            } else if (obj.event === "add") {//添加行
+                add(obj.data);
+            } else if (obj.event === "editBtn") {//编辑
+                editOpen(obj.data.deptId);
+            }
+        });
+        //// 刷新
+        $('#btn-refresh').on('click', function () {
+            query()
+        });
 
-    // 操作对象
-    var table = layui.table
-        , vipTable = layui.vip_table
-        , layer = layui.layer
-        , $ = layui.jquery;
+        //父级新增
+        $('#btn-add').on('click', function () {
+            addOpen(0);
+        });
 
-    // 表格渲染
-//        var tableIns = table.render({
-//            elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
-//            , height: vipTable.getFullHeight()    //容器高度
-//            , cols: [[                  //标题栏
-//                {checkbox: true, sort: true, fixed: true, space: true}
-//                , {field: 'id', title: 'ID', width: 80}
-//                , {field: 'account', title: '用户名', width: 120}
-//                , {field: 'auth_group_name', title: '权限组', width: 120}
-//                , {field: 'last_login_time', title: '最后登录时间', width: 180}
-//                , {field: 'last_login_ip', title: '最后登录IP', width: 180}
-//                , {field: 'create_time', title: '创建时间', width: 180}
-//                , {field: 'status', title: '状态', width: 70}
-//                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
-//            ]]
-//            , id: 'dataCheck'
-//            , url: './../json/data_table.json'
-//            , method: 'get'
-//            , page: true
-//            , limits: [30, 60, 90, 150, 300]
-//            , limit: 30 //默认采用30
-//            , loading: false
-//            , done: function (res, curr, count) {
-//                //如果是异步请求数据方式，res即为你接口返回的信息。
-//                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-//                console.log(res);
-//
-//                //得到当前页码
-//                console.log(curr);
-//
-//                //得到数据总量
-//                console.log(count);
-//            }
-//        });
+        //折叠/展开
+        $('#btn-openAll').on('click', function () {
+            openAll()
+        });
 
-    // 获取选中行
-    table.on('checkbox(dataCheck)', function (obj) {
-        console.log(obj.checked); //当前是否选中状态
-        console.log(obj.data); //选中行的相关数据
-        console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
-    });
+        //点击事务绑定
+        $('.my-btn-box .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
 
-    // 树        更多操作请查看 http://www.layui.com/demo/tree.html
-    layui.tree({
-        elem: '#tree' //传入元素选择器
-        , click: function (item) { //点击节点回调
-            layer.msg('当前节名称：' + item.name);
-            // 加载中...
-            var loadIndex = layer.load(2, {shade: false});
-            // 关闭加载
-            layer.close(loadIndex);
-            // 刷新表格
-            tableIns.reload();
+        //展开还是折叠
+        function openAll() {
+            var treedata = treeGrid.getDataTreeList(tableId);
+            treeGrid.treeOpenAll(tableId, !treedata[0][treeGrid.config.cols.isOpen]);
         }
-        , nodes: [{ //节点
-            name: '父节点1'
-            , children: [{
-                name: '子节点11'
-                , children: [{
-                    name: '子节点111'
-                }]
-            }, {
-                name: '子节点12'
-            }]
-        }, {
-            name: '父节点2'
-            , children: [{
-                name: '子节点21'
-                , children: [{
-                    name: '子节点211纷纷就爱我就覅偶而安静佛尔'
-                }]
-            }]
-        }]
+
+        //重载
+        function query() {
+            var deptName = $('#deptName');
+            treeGrid.query(tableId, {
+                where: {
+                    name: deptName.val()
+                }
+            });
+        }
     });
 
-    // you code ...
 
+//添加
+function add(parentObj) {
+    var parentId = parentObj ? parentObj.deptId : 0;
+    addOpen(parentId)
+}
 
-});
+function addOpen(parentId) {
+    layer.open({
+        type: 2,
+        title: "新增",
+        closeBtn: false,//关闭按钮
+        shift: 2,
+        area: ['400px', '300px'],
+        //btn: ['新增', '取消'],
+        closeBtn: 1,//关闭按钮
+        // btnAlign: 'c',
+        //maxmin : true,//最大最小化
+        content: prefix + "/add?" + "parentId=" + parentId,
+        success: function (layero, index) {
+
+        },
+        cancel: function (index, layero) {
+            if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                layer.close(index)
+            }
+            return false;
+        }
+    });
+}
+
+/**
+ * 编辑用户
+ * @param id
+ */
+function editOpen(id) {
+    //页面层-自定义
+    layer.open({
+        type: 2,
+        title: "编辑",
+        closeBtn: false,//关闭按钮
+        shift: 2,
+        area: ['400px', '300px'],
+        closeBtn: 1,//关闭按钮
+        // btnAlign: 'c',
+        //maxmin : true,//最大最小化
+        content: prefix + "/edit/" + id,
+        success: function (layero, index) {
+
+        },
+        cancel: function (index, layero) {
+            layer.close(index)
+            return false;
+        }
+    });
+}
+
+//重载
+function queryBtn() {
+    $('#btn-refresh').trigger("click");
+}

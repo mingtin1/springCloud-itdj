@@ -49,10 +49,14 @@
         `user`.avatar,
         `user`.create_time AS ucreate_time,
         `user`.update_time AS uupdate_time,
-        `user`.del_flag AS udel_flag
+        `user`.del_flag AS udel_flag,
+        d.name AS deptName,
+        d.dept_id AS deptId
         FROM
         sys_user AS `user`
+        LEFT JOIN sys_dept AS d ON d.dept_id = `user`.dept_id
         <where>
+
             <if test="username != null and username != ''">
                 and `user`.username LIKE CONCAT('%',#{username},'%')
             </if>

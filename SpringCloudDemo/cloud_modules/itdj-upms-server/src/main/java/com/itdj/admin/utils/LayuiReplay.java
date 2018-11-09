@@ -2,13 +2,13 @@ package com.itdj.admin.utils;
 
 public class LayuiReplay  {
 	/**响应编码*/
-	private int code;
+	protected int code;
 	/**响应消息*/
-	private String msg;
+	protected String msg;
 	/**数据总量*/
-	private int count;
+	protected int count;
 	/**数据*/
-	private Object data;
+	protected Object data;
 
 	public LayuiReplay() {
 	}

@@ -4,7 +4,7 @@ package com.itdj.admin.model.dto;
 import lombok.Data;
 
 /**
- * @author lengleng
+ * @author djj
  * @date 2018/1/20
  * 部门树
  */

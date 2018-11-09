@@ -3,7 +3,8 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
         , layer = layui.layer
         , layedit = layui.layedit
         , laydate = layui.laydate
-        , element = layui.element;
+        , element = layui.element
+        , $ = layui.jquery;
 
     //创建一个编辑器
     var editIndex = layedit.build('LAY_demo_editor');
@@ -31,6 +32,7 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
     form.on('submit(subButton)', function (data) {
         $.ajax({
             cache: true,
+            dataType:'json',
             type: "POST",
             url: "/user/addForm",
             data: data.field,// 你的formid

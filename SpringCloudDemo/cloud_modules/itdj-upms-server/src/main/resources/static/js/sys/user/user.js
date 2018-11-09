@@ -37,11 +37,11 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function () {
                     fixed: 'left',
                 }
                 , {field: 'username', title: '用户名', align: 'center', width: 80}
-                , {field: 'phone', title: '手机号', align: 'center', width: 150}
-                , {field: 'deptName', title: '所属部门', align: 'center', width: 120}
-                , {field: 'createTime', title: '创建时间', align: 'center', width: 180, sort: true}
-                , {field: 'delFlag', title: '状态', align: 'center', width: 100, sort: true, templet: '#delFlag'}
-                , {fixed: 'right', title: '操作', width: 180, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+                , {field: 'phone', title: '手机号', align: 'center', width: 160}
+                , {field: 'deptName', title: '所属部门', align: 'center', width: 160}
+                , {field: 'createTime', title: '创建时间', align: 'center', width: 250, sort: true}
+                , {field: 'delFlag', title: '状态', align: 'center', width: 80, sort: true, templet: '#delFlag'}
+                , {fixed: 'right', title: '操作', width: "200", align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
             , id: 'userDataList'
             , url: '/user/userPage/' //数据接口
@@ -169,6 +169,7 @@ function editUser(id) {
         }
     });
 }
+
 /**
  * 刷新
  */

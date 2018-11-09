@@ -1,5 +1,5 @@
 /*
- *    Copyright (c) 2018-2025, lengleng All rights reserved.
+ *    Copyright (c) 2018-2025, djj All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -12,7 +12,7 @@
  * Neither the name of the pig4cloud.com developer nor the names of its
  * contributors may be used to endorse or promote products derived from
  * this software without specific prior written permission.
- * Author: lengleng (wangiegie@gmail.com)
+ * Author: djj (wangiegie@gmail.com)
  */
 
 package com.itdj.admin.service;
@@ -20,6 +20,7 @@ package com.itdj.admin.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.itdj.admin.model.dto.DeptDTO;
 import com.itdj.admin.model.dto.DeptTree;
 import com.itdj.admin.model.entity.SysDept;
 
@@ -31,7 +32,7 @@ import java.util.List;
  * 部门管理 服务类
  * </p>
  *
- * @author lengleng
+ * @author djj
  * @since 2018-01-20
  */
 public interface SysDeptService extends IService<SysDept> {
@@ -52,19 +53,19 @@ public interface SysDeptService extends IService<SysDept> {
      */
     Boolean insertDept(SysDept sysDept);
 
-//    /**
-//     * 删除部门
-//     *
-//     * @param id 部门 ID
-//     * @return 成功、失败
-//     */
-//    Boolean deleteDeptById(Integer id);
-//
-//    /**
-//     * 更新部门
-//     *
-//     * @param sysDept 部门信息
-//     * @return 成功、失败
-//     */
-//    Boolean updateDeptById(SysDept sysDept);
+    /**
+     * 删除部门
+     *
+     * @param id 部门 ID
+     * @return 成功、失败
+     */
+    Boolean deleteDeptById(Integer id);
+
+    /**
+     * 更新部门
+     *
+     * @param sysDept 部门信息
+     * @return 成功、失败
+     */
+    Boolean updateDeptById(SysDept sysDept);
 }
