@@ -31,14 +31,26 @@
         <label class="layui-form-label">手机号</label>
         <div class="layui-input-inline">
             <input name="phone"
-                   autocomplete="off" class="layui-input" type="tel">
+                   autocomplete="off" class="layui-input" type="test">
         </div>
     </div>
-
+    <div class="layui-form-item">
+        <label class="layui-form-label">部门</label>
+        <div class="layui-input-inline">
+            <input name="deptId" autocomplete="off" class="layui-input" type="hidden">
+            <input name="deptName" placeholder="选择部门" id="deptTree" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-inline">
+            <input name="role"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="subButton">提交</button>
-
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>

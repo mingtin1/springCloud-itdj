@@ -1,9 +1,6 @@
-layui.use(['form', 'layedit', 'laydate', 'element'], function () {
+layui.use(['form', 'layedit', 'laydate', 'element', 'upload'], function () {
     var form = layui.form
-        , layer = layui.layer
         , layedit = layui.layedit
-        , laydate = layui.laydate
-        , element = layui.element
         , $ = layui.jquery;
 
     //创建一个编辑器

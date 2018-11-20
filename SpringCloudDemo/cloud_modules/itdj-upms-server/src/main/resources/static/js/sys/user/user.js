@@ -126,7 +126,7 @@ function addUser() {
         title: "新增用户",
         closeBtn: false,//关闭按钮
         shift: 2,
-        area: ['400px', '300px'],
+        area: ['450px', '400px'],
         //btn: ['新增', '取消'],
         closeBtn: 1,//关闭按钮
         // btnAlign: 'c',
@@ -155,7 +155,7 @@ function editUser(id) {
         title: "编辑用户",
         closeBtn: false,//关闭按钮
         shift: 2,
-        area: ['400px', '300px'],
+        area: ['400px', '400px'],
         closeBtn: 1,//关闭按钮
         // btnAlign: 'c',
         //maxmin : true,//最大最小化

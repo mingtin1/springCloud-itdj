@@ -19,42 +19,27 @@ package com.itdj.admin.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itdj.admin.model.dto.RoleDTO;
-import com.itdj.admin.model.entity.SysRole;
+import com.itdj.admin.model.entity.SysMenu;
+import com.itdj.common.vo.MenuVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
- * Mapper 接口
+ * 菜单权限表 Mapper 接口
  * </p>
  *
  * @author djj
  * @since 2017-10-29
  */
-public interface SysRoleMapper extends BaseMapper<SysRole> {
+public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
     /**
-     * 查询角色列表含有部门信息
+     * 通过角色名查询菜单
      *
-     * @return List
+     * @param role 角色名称
+     * @return 菜单列表
      */
-    List<RoleDTO> selectRolePage();
-
-    /**
-     * 通过部门ID查询角色列表
-     *
-     * @param deptId 部门ID
-     * @return 角色列表
-     */
-    List<SysRole> selectListByDeptId(Integer deptId);
-
-    /**
-     * 根据角色Id查询
-     *
-     * @param id
-     * @return
-     */
-    RoleDTO getRoleDTOById(Integer role_id);
+    List<MenuVO> findMenuByRoleName(@Param("role") String role);
 }

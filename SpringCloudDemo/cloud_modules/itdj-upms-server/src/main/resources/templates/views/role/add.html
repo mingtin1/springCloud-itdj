@@ -33,6 +33,24 @@
             <input name="roleDesc" autocomplete="off" lay-verify="roleDesc" class="layui-input" type="text">
         </div>
     </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">部门</label>
+        <div class="layui-input-inline">
+            <div class="layui-unselect layui-form-select downpanel">
+                <div class="layui-select-title">
+                    <span class="layui-input layui-unselect" id="treeclass">部门</span>
+                    <input type="hidden" name="roleDeptId" value="0">
+                    <i class="layui-edge"></i>
+                </div>
+                <dl class="layui-anim layui-anim-upbit">
+                    <dd>
+                        <ul id="classtree"></ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+    </div>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -45,5 +63,6 @@
 
 <script src="/frame/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="/js/sys/role/add.js"></script>
+
 </body>
 </html>

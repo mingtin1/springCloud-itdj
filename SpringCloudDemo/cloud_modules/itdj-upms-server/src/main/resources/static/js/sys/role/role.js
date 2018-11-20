@@ -46,7 +46,7 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function () {
                 , {field: 'createTime', title: '创建时间', align: 'center', width: 250, sort: true}
                 , {fixed: 'right', title: '操作', width: "200", align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
-            , id: 'roleDateTable'
+            , id: 'dataTable'
             , url: '/role/listPage/' //数据接口
             , page: true
             , limit: 10
@@ -57,13 +57,13 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function () {
 
 
         //监听行工具事件
-        table.on('tool(dateTable)', function (obj) {
+        table.on('tool(roleTable)', function (obj) {
             var data = obj.data;
             if (obj.event === 'del') {
-                del(data);
+                del(data.roleId);
             }
             else if (obj.event === 'edit') {
-                editUser(data.userId)
+                editUser(data.roleId, data.roleDeptId)
             }
         });
 
@@ -108,7 +108,7 @@ function add() {
         title: "新增用户",
         closeBtn: false,//关闭按钮
         shift: 2,
-        area: ['400px', '300px'],
+        area: ['400px', '400px'],
         //btn: ['新增', '取消'],
         closeBtn: 1,//关闭按钮
         // btnAlign: 'c',
@@ -130,14 +130,14 @@ function add() {
  * 编辑用户
  * @param id
  */
-function editUser(id) {
+function editUser(id, roleDeptId) {
     //页面层-自定义
     layer.open({
         type: 2,
         title: "编辑用户",
         closeBtn: false,//关闭按钮
         shift: 2,
-        area: ['400px', '300px'],
+        area: ['400px', '400px'],
         closeBtn: 1,//关闭按钮
         // btnAlign: 'c',
         //maxmin : true,//最大最小化

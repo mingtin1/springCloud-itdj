@@ -15,46 +15,52 @@
  * Author: djj (wangiegie@gmail.com)
  */
 
-package com.itdj.admin.mapper;
+package com.itdj.admin.model.entity;
 
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itdj.admin.model.dto.RoleDTO;
-import com.itdj.admin.model.entity.SysRole;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
 
-import java.util.List;
-import java.util.Map;
+import java.io.Serializable;
 
 /**
  * <p>
- * Mapper 接口
+ * 角色菜单表
  * </p>
  *
  * @author djj
  * @since 2017-10-29
  */
-public interface SysRoleMapper extends BaseMapper<SysRole> {
+@Data
+@TableName("sys_role_menu")
+public class SysRoleMenu extends Model<SysRoleMenu> {
+
+    private static final long serialVersionUID = 1L;
 
     /**
-     * 查询角色列表含有部门信息
-     *
-     * @return List
+     * 角色ID
      */
-    List<RoleDTO> selectRolePage();
-
+    @TableId(type = IdType.INPUT)
+	private Integer roleId;
     /**
-     * 通过部门ID查询角色列表
-     *
-     * @param deptId 部门ID
-     * @return 角色列表
+     * 菜单ID
      */
-    List<SysRole> selectListByDeptId(Integer deptId);
+	@TableId(type = IdType.INPUT)
+	private Integer menuId;
 
-    /**
-     * 根据角色Id查询
-     *
-     * @param id
-     * @return
-     */
-    RoleDTO getRoleDTOById(Integer role_id);
+	@Override
+	protected Serializable pkVal() {
+		return this.roleId;
+	}
+
+	@Override
+	public String toString() {
+		return "SysRoleMenu{" +
+			", roleId=" + roleId +
+			", menuId=" + menuId +
+			"}";
+	}
 }

@@ -1,4 +1,4 @@
-layui.use(['form', 'layedit', 'laydate', 'element', 'tree'], function () {
+layui.use(['form', 'layedit', 'laydate', 'tree', 'element'], function () {
     var form = layui.form
         , layedit = layui.layedit
         , tree = layui.tree
@@ -33,7 +33,7 @@ layui.use(['form', 'layedit', 'laydate', 'element', 'tree'], function () {
             cache: true,
             dataType: 'json',
             type: "POST",
-            url: "/role/roleForm",
+            url: "/role/roleUpdate",
             data: data.field,// 你的formid
             async: false, //异步
             success: function (data) {
@@ -54,14 +54,18 @@ layui.use(['form', 'layedit', 'laydate', 'element', 'tree'], function () {
     });
 
 
+    /**
+     * 下拉树初始化
+     * @param data
+     */
     function infoTree(data) {
         tree({
             elem: "#classtree",
-            nodes: data
-            ,
+            nodes: data,
             click: function (node) {
                 var $select = $($(this)[0].elem).parents(".layui-form-select");
-                $select.removeClass("layui-form-selected").find(".layui-select-title span").html(node.name).end().find("input:hidden[name='roleDeptId']").val(node.id);
+                $select.removeClass("layui-form-selected").find(".layui-select-title span")
+                    .html(node.name).end().find("input:hidden[name='roleDeptId']").val(node.id);
             }
         });
     }

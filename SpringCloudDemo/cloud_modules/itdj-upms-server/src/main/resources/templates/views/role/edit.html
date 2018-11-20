@@ -12,38 +12,57 @@
 </head>
 <body class="body">
 <form class="layui-form layui-form-pane" action="">
-    <input id="userId" name="userId" th:value="${uservo.userId}"
+    <input id="userId" name="roleId" th:value="${roleDTO.roleId}"
            type="hidden">
     <div class="layui-form-item">
-        <label class="layui-form-label">用户名</label>
+        <label class="layui-form-label">角色名称</label>
         <div class="layui-input-inline">
-            <input name="username" lay-verify="username"
-                   th:value="${uservo.username}"
-                   placeholder="请输入用户名"
+            <input type="text" name="roleName" lay-verify="roleName"
+                   th:value="${roleDTO.roleName}"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色标识</label>
+        <div class="layui-input-inline">
+            <input type="text" name="roleCode" lay-verify="roleCode" th:value="${roleDTO.roleCode}"
                    autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">手机号</label>
+        <label class="layui-form-label">描述</label>
         <div class="layui-input-inline">
-            <input name="phone"
-                   th:value="${uservo.phone}"
-                   autocomplete="off" class="layui-input" type="tel">
+            <input name="roleDesc" autocomplete="off" lay-verify="roleDesc"
+                   th:value="${roleDTO.roleDesc}"
+                   class="layui-input" type="text">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">状态</label>
+        <label class="layui-form-label">部门</label>
         <div class="layui-input-inline">
-            <input th:field="*{uservo.delFlag}" name="delFlag" value="0" title="有效" type="radio">
-            <input th:field="*{uservo.delFlag}" name="delFlag" value="1" title="无效" type="radio">
+            <div class="layui-unselect layui-form-select downpanel">
+                <div class="layui-select-title">
+                    <span class="layui-input layui-unselect" th:text="${roleDTO.deptName}" id="treeclass">部门</span>
+                    <input type="hidden" name="roleDeptId" th:value="${roleDTO.roleDeptId}" value="0">
+                    <i class="layui-edge"></i>
+                </div>
+                <dl class="layui-anim layui-anim-upbit">
+                    <dd>
+                        <ul id="classtree">
+
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
         </div>
-    </div>
+
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="subButton">提交</button>
+
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>

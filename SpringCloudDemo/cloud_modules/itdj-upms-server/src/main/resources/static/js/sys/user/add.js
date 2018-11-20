@@ -32,7 +32,7 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
     form.on('submit(subButton)', function (data) {
         $.ajax({
             cache: true,
-            dataType:'json',
+            dataType: 'json',
             type: "POST",
             url: "/user/addForm",
             data: data.field,// 你的formid
@@ -53,5 +53,33 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
         });
         return false;
     });
+
+    $("#deptTree").on("click", function () {
+        console.log("部门菜单按钮")
+    });
+
+    /**
+     * 获取树
+     */
+    function deptTree() {
+        //页面层-自定义
+        layer.open({
+            type: 2,
+            title: "部门树",
+            closeBtn: false,//关闭按钮
+            shift: 2,
+            area: ['450px', '400px'],
+            closeBtn: 1,//关闭按钮
+            // btnAlign: 'c',
+            content: "/dept/tree",
+            success: function (layero, index) {
+
+            },
+            cancel: function (index, layero) {
+                layer.close(index)
+
+            }
+        });
+    }
 
 });

@@ -18,6 +18,7 @@
 package com.itdj.admin.service.impl;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itdj.admin.mapper.SysRoleDeptMapper;
 import com.itdj.admin.mapper.SysRoleMapper;
@@ -32,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,11 +45,18 @@ import java.util.List;
  * @since 2017-10-29
  */
 @Service
+@Transactional
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements SysRoleService {
     @Autowired
     private SysRoleDeptMapper sysRoleDeptMapper;
     @Autowired
     private SysRoleMapper sysRoleMapper;
+
+
+    @Override
+    public RoleDTO getRoleDTOById(Integer id) {
+        return sysRoleMapper.getRoleDTOById(id);
+    }
 
     /**
      * 添加角色
@@ -59,6 +68,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     public Boolean insertRole(RoleDTO roleDto) {
         SysRole sysRole = new SysRole();
         BeanUtils.copyProperties(roleDto, sysRole);
+        sysRole.setDelFlag(CommonConstant.STATUS_NORMAL);
+        sysRole.setCreateTime(new Date());
         sysRoleMapper.insert(sysRole);
         SysRoleDept roleDept = new SysRoleDept();
         roleDept.setRoleId(sysRole.getRoleId());
@@ -104,11 +115,12 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         //删除原有的角色部门关系
         SysRoleDept condition = new SysRoleDept();
         condition.setRoleId(roleDto.getRoleId());
-//        sysRoleDeptMapper.delete(new EntityWrapper<>(condition));
+        sysRoleDeptMapper.delete(new QueryWrapper<>(condition));
 
         //更新角色信息
         SysRole sysRole = new SysRole();
         BeanUtils.copyProperties(roleDto, sysRole);
+        sysRole.setUpdateTime(new Date());
         sysRoleMapper.updateById(sysRole);
 
         //维护角色部门关系

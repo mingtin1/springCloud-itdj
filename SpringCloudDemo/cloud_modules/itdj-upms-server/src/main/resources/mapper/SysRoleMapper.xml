@@ -36,6 +36,18 @@
 		WHERE r.del_flag = 0
 		ORDER BY r.role_id ASC
 	</select>
+    <select id="getRoleDTOById" resultMap="RoleDtoMap">
+		SELECT
+			*
+		FROM
+			sys_role r
+		LEFT JOIN sys_role_dept rd ON rd.role_id = r.role_id
+		LEFT JOIN sys_dept d ON rd.dept_id = d.dept_id
+		WHERE r.del_flag = 0
+		      and rd.role_id=#{role_id}
+	</select>
+
+
     <select id="selectListByDeptId" resultMap="BaseResultMap">
 		SELECT
 			r.role_id,
@@ -48,4 +60,6 @@
 		FROM sys_role r LEFT OUTER JOIN sys_role_dept rd ON rd.role_id = r.role_id
 		WHERE rd.dept_id = #{deptId}
 	</select>
+
+
 </mapper>

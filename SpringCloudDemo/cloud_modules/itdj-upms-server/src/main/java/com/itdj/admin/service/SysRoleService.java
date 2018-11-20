@@ -36,7 +36,6 @@ import java.util.List;
 public interface SysRoleService extends IService<SysRole> {
 
 
-
     /**
      * 添加角色
      *
@@ -72,8 +71,16 @@ public interface SysRoleService extends IService<SysRole> {
 
     /**
      * 分页查角色列表
+     *
      * @return
      */
     LayuiReplay listPage();
 
+    /**
+     * 根据角色Id查询
+     *
+     * @param id
+     * @return
+     */
+    RoleDTO getRoleDTOById(Integer id);
 }

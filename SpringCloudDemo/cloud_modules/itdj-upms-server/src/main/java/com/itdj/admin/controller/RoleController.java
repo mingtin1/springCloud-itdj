@@ -19,17 +19,18 @@ package com.itdj.admin.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.itdj.admin.model.dto.RoleDTO;
 import com.itdj.admin.model.entity.SysRole;
+import com.itdj.admin.model.entity.SysRoleDept;
+import com.itdj.admin.service.SysRoleDeptService;
 import com.itdj.admin.service.SysRoleService;
 import com.itdj.admin.utils.LayuiReplay;
-import com.itdj.admin.utils.LayuiTreeReplay;
 import com.itdj.common.constant.CommonConstant;
+import com.itdj.common.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author djj
@@ -42,6 +43,10 @@ public class RoleController {
 
     @Autowired
     private SysRoleService sysRoleService;
+    //    @Autowired
+//    private SysRoleMenuService sysRoleMenuService;
+    @Autowired
+    private SysRoleDeptService sysRoleDeptService;
 
     @RequestMapping("/list")
     public String list() {
@@ -55,7 +60,8 @@ public class RoleController {
 
     @RequestMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model) {
-
+        RoleDTO roleDTO = sysRoleService.getRoleDTOById(id);
+        model.addAttribute("roleDTO", roleDTO);
         return prefix + "edit";
     }
 
@@ -69,56 +75,70 @@ public class RoleController {
     public LayuiReplay getList() {
         return sysRoleService.listPage();
     }
-//    @Autowired
-//    private SysRoleMenuService sysRoleMenuService;
 
-//    /**
-//     * 通过ID查询角色信息
-//     *
-//     * @param id ID
-//     * @return 角色信息
-//     */
-//    @GetMapping("/{id}")
-//    public SysRole role(@PathVariable Integer id) {
-//        return sysRoleService.getById(id);
-//    }
-//
-//    /**
-//     * 添加角色
-//     *
-//     * @param roleDto 角色信息
-//     * @return success、false
-//     */
-//    @PostMapping
-//    public R<Boolean> role(@RequestBody RoleDTO roleDto) {
-//        return new R<>(sysRoleService.insertRole(roleDto));
-//    }
-//
-//    /**
-//     * 修改角色
-//     *
-//     * @param roleDto 角色信息
-//     * @return success/false
-//     */
-//    @PutMapping
-//    public R<Boolean> roleUpdate(@RequestBody RoleDTO roleDto) {
-//        return new R<>(sysRoleService.updateRoleById(roleDto));
-//    }
-//
-//    /**
-//     * 删除
-//     *
-//     * @param id
-//     * @return
-//     */
-//
-//    @DeleteMapping("/{id}")
-//    public R<Boolean> roleDel(@PathVariable Integer id) {
-//        SysRole sysRole = sysRoleService.selectById(id);
-//        sysRole.setDelFlag(CommonConstant.STATUS_DEL);
-//        return new R<>(sysRoleService.updateById(sysRole));
-//    }
-//
+
+    /**
+     * 通过ID查询角色信息
+     *
+     * @param id ID
+     * @return 角色信息
+     */
+    @GetMapping("/{id}")
+    public SysRole role(@PathVariable Integer id) {
+        return sysRoleService.getById(id);
+    }
+
+    /**
+     * 添加角色
+     *
+     * @param roleDto 角色信息
+     * @return success、false
+     */
+    @RequestMapping(value = "/roleForm")
+    @ResponseBody
+    public R<Boolean> roleForm(RoleDTO roleDto) {
+        try {
+            sysRoleService.insertRole(roleDto);
+            return new R();
+        } catch (Exception e) {
+            return new R(e);
+        }
+    }
+
+
+    /**
+     * 修改角色
+     *
+     * @param roleDto 角色信息
+     * @return success/false
+     */
+    @RequestMapping(value = "/roleUpdate")
+    @ResponseBody
+    public R<Boolean> roleUpdate(RoleDTO roleDto) {
+        try {
+            return new R<>(sysRoleService.updateRoleById(roleDto));
+        } catch (Exception e) {
+            return new R(e);
+        }
+
+
+    }
+
+    /**
+     * 删除
+     *
+     * @param id
+     * @return
+     */
+
+    @RequestMapping(value = "remove")
+    @ResponseBody
+    public R<Boolean> roleDel(@RequestParam Integer id) {
+        SysRole sysRole = sysRoleService.getById(id);
+        sysRole.setDelFlag(CommonConstant.STATUS_DEL);
+        return new R<>(sysRoleService.updateById(sysRole));
+    }
+
 //    /**
 //     * 获取角色列表
 //     *

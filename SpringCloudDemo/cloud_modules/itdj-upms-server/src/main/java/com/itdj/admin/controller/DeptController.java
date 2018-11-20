@@ -62,6 +62,15 @@ public class DeptController {
         return prefix + "edit";
     }
 
+    /**
+     * 返回树形菜单
+     *
+     * @return 树形菜单
+     */
+    @RequestMapping(value = "/deptTree")
+    public String tree() {
+        return prefix + "tree";
+    }
 
     /**
      * 返回部门列表
@@ -141,7 +150,7 @@ public class DeptController {
     public R<Boolean> remove(@PathVariable Integer id) {
 
         try {
-            return new R(sysDeptService.deleteDeptById(id),"删除成功");
+            return new R(sysDeptService.deleteDeptById(id), "删除成功");
         } catch (Exception e) {
             return new R(e);
         }

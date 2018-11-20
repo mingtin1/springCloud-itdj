@@ -3,6 +3,7 @@ package com.itdj.admin.controller;
 
 import com.itdj.admin.model.dto.UserDTO;
 import com.itdj.admin.model.entity.SysUser;
+import com.itdj.admin.model.entity.SysUserRole;
 import com.itdj.admin.model.queryPage.UserPage;
 import com.itdj.admin.service.SysUserService;
 import com.itdj.admin.utils.LayuiReplay;
@@ -81,6 +82,13 @@ public class UserController {
         sysUser.setDelFlag(CommonConstant.STATUS_NORMAL);
         sysUser.setPassword(ENCODER.encode(userDTO.getNewpassword1()));
         boolean save = userService.save(sysUser);
+
+        userDTO.getRole().forEach(roleId -> {
+            SysUserRole userRole = new SysUserRole();
+            userRole.setUserId(sysUser.getUserId());
+            userRole.setRoleId(roleId);
+            userRole.insert();
+        });
         return new R();
     }
 
