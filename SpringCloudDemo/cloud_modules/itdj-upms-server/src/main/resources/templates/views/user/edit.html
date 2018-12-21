@@ -40,6 +40,25 @@
             <input th:field="*{uservo.delFlag}" name="delFlag" value="1" title="无效" type="radio">
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">部门</label>
+        <input name="deptId" id="deptId" autocomplete="off" th:value="${uservo.deptId}" class="layui-input"
+               type="hidden">
+        <div class="layui-input-inline">
+            <input name="deptName" placeholder="选择部门" id="deptTree" th:value="${uservo.deptName}" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-block" id="roleCheckbox">
+            <label th:each="role:${uservo.roleList}" class="checkbox-inline">
+                <input th:value="${role.roleId}" th:title="${role.roleName}"
+                       checked="checked" type="checkbox">
+            </label>
+        </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -48,7 +67,6 @@
         </div>
     </div>
 </form>
-
 <script src="/frame/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="/js/sys/user/edit.js"></script>
 </body>

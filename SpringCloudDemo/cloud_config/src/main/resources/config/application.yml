@@ -74,6 +74,7 @@ hystrix:
 management:
   security:
     enabled: false
+
 endpoints:
   actuator:
     enabled: true

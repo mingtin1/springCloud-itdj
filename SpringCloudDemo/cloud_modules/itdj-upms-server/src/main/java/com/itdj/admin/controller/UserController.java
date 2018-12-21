@@ -2,9 +2,11 @@
 package com.itdj.admin.controller;
 
 import com.itdj.admin.model.dto.UserDTO;
+import com.itdj.admin.model.entity.SysRole;
 import com.itdj.admin.model.entity.SysUser;
 import com.itdj.admin.model.entity.SysUserRole;
 import com.itdj.admin.model.queryPage.UserPage;
+import com.itdj.admin.service.SysRoleService;
 import com.itdj.admin.service.SysUserService;
 import com.itdj.admin.utils.LayuiReplay;
 import com.itdj.common.constant.CommonConstant;
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author djj
  * @since 2018-10-16
@@ -31,6 +36,8 @@ public class UserController {
     private String prefix = "views/user/";
     @Autowired
     private SysUserService userService;
+    @Autowired
+    private SysRoleService sysRoleService;
 
     /**
      * 获取用户信息
@@ -78,12 +85,17 @@ public class UserController {
     @ResponseBody
     public R<Boolean> addForm(UserDTO userDTO) {
         SysUser sysUser = new SysUser();
+        List<Integer> nullArr = new ArrayList<Integer>();
+        nullArr.add(null);
+        List<Integer> role1 = userDTO.getRole();
+        role1.removeAll(nullArr);
+        userDTO.setRole(role1);
         BeanUtils.copyProperties(userDTO, sysUser);
         sysUser.setDelFlag(CommonConstant.STATUS_NORMAL);
         sysUser.setPassword(ENCODER.encode(userDTO.getNewpassword1()));
-        boolean save = userService.save(sysUser);
-
-        userDTO.getRole().forEach(roleId -> {
+        userService.save(sysUser);
+        List<Integer> role = userDTO.getRole();
+        role.forEach(roleId -> {
             SysUserRole userRole = new SysUserRole();
             userRole.setUserId(sysUser.getUserId());
             userRole.setRoleId(roleId);
@@ -102,7 +114,10 @@ public class UserController {
     @RequestMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model) {
         UserVO uservo = userService.selectUserVoById(id);
+
+        List<SysRole> sysRoles = sysRoleService.selectListByDeptId(uservo.getDeptId());
         model.addAttribute("uservo", uservo);
+        model.addAttribute("roles", sysRoles);
         return prefix + "edit";
     }
 
@@ -115,12 +130,13 @@ public class UserController {
     @RequestMapping("/update")
     @ResponseBody
     public R<Boolean> update(UserDTO userDTO) {
+        List<Integer> nullArr = new ArrayList<Integer>();
+        nullArr.add(null);
+        List<Integer> role1 = userDTO.getRole();
+        role1.removeAll(nullArr);
+        userDTO.setRole(role1);
         SysUser user = userService.getById(userDTO.getUserId());
-        boolean b = userService.updateUser(userDTO, user.getUsername());
-        if (b) {
-            return new R<>();
-        }
-        return new R<>();
+        return new R<>(userService.updateUser(userDTO, user.getUsername()));
     }
 
     @RequestMapping("/test")

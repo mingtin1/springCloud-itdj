@@ -29,9 +29,17 @@ layui.use(['tree', 'table', 'vip_table', 'layer', 'form'], function () {
             elem: '#tree' //传入元素选择器
             , nodes: dataTree
             , click: function (node) {
-
+                console.log(node)
+                parent.setDept(node);
+                var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+                parent.layer.close(index);
             }
         });
     }
 
+    $("#binReturn").on("click", function () {
+
+        var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+        parent.layer.close(index);
+    })
 });

@@ -64,6 +64,8 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function () {
             }
             else if (obj.event === 'edit') {
                 editUser(data.roleId, data.roleDeptId)
+            } else if (obj.event === 'authorities') {
+                layer.msg("权限");
             }
         });
 

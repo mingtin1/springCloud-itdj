@@ -2,11 +2,14 @@
 package com.itdj.admin.service.impl;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itdj.admin.mapper.SysUserMapper;
 import com.itdj.admin.model.dto.UserDTO;
 import com.itdj.admin.model.entity.SysUser;
+import com.itdj.admin.model.entity.SysUserRole;
 import com.itdj.admin.model.queryPage.UserPage;
+import com.itdj.admin.service.SysUserRoleService;
 import com.itdj.admin.service.SysUserService;
 import com.itdj.admin.utils.LayuiReplay;
 import com.itdj.common.vo.UserVO;
@@ -28,6 +31,8 @@ import java.util.List;
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
     @Autowired
     private SysUserMapper mapper;
+    @Autowired
+    private SysUserRoleService sysUserRoleService;
 
     @Override
     public List<UserVO> selectWithRolePage(UserPage userPage) {
@@ -57,7 +62,18 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(userDTO, sysUser);
         sysUser.setUpdateTime(new Date());
-        return this.updateById(sysUser);
+        this.updateById(sysUser);
+
+        SysUserRole condition = new SysUserRole();
+        condition.setUserId(userDTO.getUserId());
+        sysUserRoleService.remove(new QueryWrapper<>(condition));
+        userDTO.getRole().forEach(roleId -> {
+            SysUserRole userRole = new SysUserRole();
+            userRole.setUserId(sysUser.getUserId());
+            userRole.setRoleId(roleId);
+            userRole.insert();
+        });
+        return Boolean.TRUE;
     }
 
     /**
@@ -69,7 +85,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     @CacheEvict(value = "user_details", key = "#sysUser.username")
     public Boolean deleteUserById(SysUser sysUser) {
-//        sysUserRoleService.deleteByUserId(sysUser.getUserId());
+        sysUserRoleService.deleteByUserId(sysUser.getUserId());
         this.removeById(sysUser.getUserId());
         return Boolean.TRUE;
     }

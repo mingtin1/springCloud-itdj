@@ -14,6 +14,8 @@
         <module>cloud_zuul</module>
         <module>cloud_common</module>
         <module>cloud_modules</module>
+        <module>cloud-auth</module>
+
     </modules>
 
     <parent>

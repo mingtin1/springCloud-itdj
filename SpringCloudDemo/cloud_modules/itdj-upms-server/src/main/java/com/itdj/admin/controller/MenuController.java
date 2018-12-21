@@ -27,6 +27,7 @@ import com.itdj.admin.utils.TreeUtil;
 import com.itdj.common.constant.CommonConstant;
 import com.itdj.common.util.R;
 import com.itdj.common.vo.MenuVO;
+import com.xiaoleilu.hutool.collection.CollUtil;
 import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author djj
@@ -112,6 +115,17 @@ public class MenuController {
 //        CollUtil.sort(menuTreeList, Comparator.comparingInt(MenuTree::getSort));
 //        return TreeUtil.bulid(menuTreeList, -1);
 //    }
+
+    /**
+     * 返回树形菜单集合
+     *
+     * @return 树形菜单
+     */
+    @RequestMapping(value = "/tree")
+
+    public String tree() {
+        return prefix + "tree";
+    }
 
 
     /**

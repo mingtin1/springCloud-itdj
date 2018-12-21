@@ -1,3 +1,4 @@
+var dept;
 layui.use(['form', 'layedit', 'laydate', 'element'], function () {
     var form = layui.form
         , layer = layui.layer
@@ -28,6 +29,8 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
             layedit.sync(editIndex);
         }
     });
+
+
     //监听提交
     form.on('submit(subButton)', function (data) {
         $.ajax({
@@ -56,7 +59,14 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
 
     $("#deptTree").on("click", function () {
         console.log("部门菜单按钮")
+        deptTree()
     });
+
+    into();
+
+    function into() {
+        console.log("部门菜单按钮")
+    }
 
     /**
      * 获取树
@@ -65,13 +75,14 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
         //页面层-自定义
         layer.open({
             type: 2,
-            title: "部门树",
             closeBtn: false,//关闭按钮
             shift: 2,
             area: ['450px', '400px'],
-            closeBtn: 1,//关闭按钮
+            // closeBtn: 1,//关闭按钮
             // btnAlign: 'c',
-            content: "/dept/tree",
+            content: "/dept/deptTree",
+            resize: false,
+            Boolean: true,
             success: function (layero, index) {
 
             },
@@ -82,4 +93,44 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
         });
     }
 
+    dept = function deptId(data) {
+        parent.layer.msg("部门赋值1");
+        $("#deptTree").val(data.name);
+        $("#deptId").val(data.id)
+        roleBydeptId(data.id);
+    }
+
+    //获取角色列表
+    function roleBydeptId(id) {
+        $.ajax({
+            url: "/role/roleList/" + id,
+            type: "post",
+            success: function (r) {
+
+                parent.layer.msg("获取到数据");
+                $("#roleCheckbox").html(roleHtml(r))
+                form.render('checkbox'); //刷新checkbox复选框渲染
+            },
+            error: function (request) {
+                layer.alert("Connection error");
+            },
+        });
+    }
+
+    function roleHtml(data) {
+        var htmld = '';
+        if (data.code == 0) {
+            var obj = data.data;
+            for (var i = 0; i < obj.length; i++) {
+                var role = obj[i]
+                console.log(role)
+                htmld += '<input value=' + role.roleId + ' name="role[' + i + ']" title=' + role.roleName + ' type="checkbox">';
+            }
+        }
+        return htmld;
+    }
 });
+
+function setDept(data) {
+    dept(data);
+}

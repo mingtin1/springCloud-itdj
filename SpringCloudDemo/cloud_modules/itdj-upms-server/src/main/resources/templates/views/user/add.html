@@ -36,18 +36,19 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">部门</label>
+        <input name="deptId" id="deptId" autocomplete="off" class="layui-input" type="hidden">
         <div class="layui-input-inline">
-            <input name="deptId" autocomplete="off" class="layui-input" type="hidden">
             <input name="deptName" placeholder="选择部门" id="deptTree" autocomplete="off" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">角色</label>
-        <div class="layui-input-inline">
-            <input name="role"
-                   autocomplete="off" class="layui-input">
+        <div class="layui-input-block" id="roleCheckbox">
+
         </div>
     </div>
+
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="subButton">提交</button>
@@ -57,6 +58,27 @@
 </form>
 
 <script src="/frame/layui/layui.js" charset="utf-8"></script>
+<script src="/js/sys/common/formSelects.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/js/sys/user/add.js"></script>
+
+<script type="text/javascript">
+    formSelects.on({
+        layFilter: 'city',	//绑定select lay-filter
+        left: '【',			//显示的符号left
+        right: '】',			//显示的符号right
+        separator: '',		//多选分隔符
+    });
+
+    //formSelects.arr 可以获取到已经选择的数据
+    function formatJson(arr) {
+        try {
+            $('#json-view').jsonViewer(eval('(' + JSON.stringify(arr) + ')'), {
+                collapsed: false,
+                withQuotes: true
+            });
+        } catch (error) {
+        }
+    }
+</script>
 </body>
 </html>

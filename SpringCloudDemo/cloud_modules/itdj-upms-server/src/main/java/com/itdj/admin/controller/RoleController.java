@@ -32,6 +32,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author djj
  * @date 2017/11/5
@@ -139,18 +141,19 @@ public class RoleController {
         return new R<>(sysRoleService.updateById(sysRole));
     }
 
-//    /**
-//     * 获取角色列表
-//     *
-//     * @param deptId 部门ID
-//     * @return 角色列表
-//     */
-//    @GetMapping("/roleList/{deptId}")
-//    public List<SysRole> roleList(@PathVariable Integer deptId) {
-//        return sysRoleService.selectListByDeptId(deptId);
-//
-//    }
-//
+    /**
+     * 获取角色列表
+     *
+     * @param deptId 部门ID
+     * @return 角色列表
+     */
+    @RequestMapping(value = "/roleList/{deptId}")
+    @ResponseBody
+    public R<List<SysRole>> roleList(@PathVariable Integer deptId) {
+        return new R<>(sysRoleService.selectListByDeptId(deptId));
+    }
+
+
 //    /**
 //     * 分页查询角色信息
 //     *

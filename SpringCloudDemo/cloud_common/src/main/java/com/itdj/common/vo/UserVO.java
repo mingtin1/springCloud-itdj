@@ -2,19 +2,21 @@
 package com.itdj.common.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author djj
  * @date 2018/10/29
  */
 @Data
-public class UserVO implements Serializable {
+public class UserVO extends Wrapper implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -69,6 +71,18 @@ public class UserVO implements Serializable {
      */
     private String deptName;
 
+    /**
+     * 角色列表
+     */
+    private List<SysRole> roleList;
 
+    @Override
+    public String getSqlSegment() {
+        return null;
+    }
 
+    @Override
+    public String getEntity() {
+        return null;
+    }
 }

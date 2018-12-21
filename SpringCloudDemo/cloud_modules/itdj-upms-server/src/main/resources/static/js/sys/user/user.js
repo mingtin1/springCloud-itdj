@@ -104,6 +104,8 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function () {
             }
             else if (obj.event === 'edit') {
                 editUser(data.userId)
+            } else if (obj.event === "roleAuthorization") {
+                roleOpen(data.userId)
             }
         });
 
@@ -112,9 +114,37 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function () {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
-
     }
 );
+
+/**
+ * 角色
+ */
+function roleOpen(id) {
+    //页面层-自定义
+    layer.open({
+        type: 2,
+        title: "用户角色",
+        closeBtn: false,//关闭按钮
+        shift: 2,
+        area: ['400px', '500px'],
+        //btn: ['新增', '取消'],
+        closeBtn: 1,//关闭按钮
+        // btnAlign: 'c',
+        resize: false,
+        //maxmin : true,//最大最小化
+        content: "/role/roleTree/" + id,
+        success: function (layero, index) {
+
+        },
+        cancel: function (index, layero) {
+            if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                layer.close(index)
+            }
+            return false;
+        }
+    });
+}
 
 /**
  * 新增
@@ -130,6 +160,7 @@ function addUser() {
         //btn: ['新增', '取消'],
         closeBtn: 1,//关闭按钮
         // btnAlign: 'c',
+        resize: false,
         //maxmin : true,//最大最小化
         content: prefix + "/add",
         success: function (layero, index) {
@@ -155,7 +186,7 @@ function editUser(id) {
         title: "编辑用户",
         closeBtn: false,//关闭按钮
         shift: 2,
-        area: ['400px', '400px'],
+        area: ['450px', '400px'],
         closeBtn: 1,//关闭按钮
         // btnAlign: 'c',
         //maxmin : true,//最大最小化

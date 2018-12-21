@@ -21,6 +21,7 @@ package com.itdj.admin.model.dto;
 import com.itdj.admin.model.entity.SysUser;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class UserDTO extends SysUser {
     /**
      * 角色ID
      */
-    private List<Integer> role;
+    private List<Integer> role=new ArrayList<>(3);
 
     private Integer deptId;
 
